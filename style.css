@@ -1,1 +1,20 @@
+body {
+    margin: 0;
+    padding: 2rem;
+    background-color: rgb(179, 179, 179);
+}
 
+.books {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.book {
+    text-align: center;
+    background-color: white;
+    width: 30rem;
+    border-radius: 1.5rem;
+}
