@@ -29,6 +29,20 @@ addBookToLibrary(bible);
 addBookToLibrary(harry);
 
 document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.querySelector("dialog");
+    const showButton = document.querySelector(".dialog-button");
+    const closeButton = document.querySelector(".close");
+
+    // "Show the dialog" button opens the dialog modally
+    showButton.addEventListener("click", () => {
+    dialog.showModal();
+    });
+
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+    dialog.close();
+    });
+
     let books = document.querySelector(".books");
     myLibrary.forEach(element => {
         let book = document.createElement("div");

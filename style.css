@@ -1,7 +1,11 @@
+:root {
+    --bc: rgb(179, 179, 179);
+}
+
 body {
     margin: 0;
     padding: 2rem;
-    background-color: rgb(179, 179, 179);
+    background-color: var(--bc);
 }
 
 .books {
@@ -18,3 +22,9 @@ body {
     width: 30rem;
     border-radius: 1.5rem;
 }
+
+
+::backdrop {
+    background: var(--bc);
+    opacity: 0.9;
+  }
