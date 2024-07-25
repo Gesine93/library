@@ -22,28 +22,9 @@ function addBookToLibrary(book) {
   }
 }
 
-let bible = new Book("The Bible", "God", 687, false);
-let harry = new Book("Harry Potter", "J.K. Rowling", 598, true);
-
-addBookToLibrary(bible);
-addBookToLibrary(harry);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const dialog = document.querySelector("dialog");
-    const showButton = document.querySelector(".dialog-button");
-    const closeButton = document.querySelector(".close");
-
-    // "Show the dialog" button opens the dialog modally
-    showButton.addEventListener("click", () => {
-    dialog.showModal();
-    });
-
-    // "Close" button closes the dialog
-    closeButton.addEventListener("click", () => {
-    dialog.close();
-    });
-
+function loadBooks() {
     let books = document.querySelector(".books");
+    books.textContent = "";
     myLibrary.forEach(element => {
         let book = document.createElement("div");
         book.classList.add("book");
@@ -61,4 +42,42 @@ document.addEventListener('DOMContentLoaded', () => {
         book.append(readStatus);
         books.appendChild(book);
     });
+}
+
+let bible = new Book("The Bible", "God", 687, false);
+let harry = new Book("Harry Potter", "J.K. Rowling", 598, true);
+
+addBookToLibrary(bible);
+addBookToLibrary(harry);
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadBooks();
+    const dialog = document.querySelector("dialog");
+    const showButton = document.querySelector(".dialog-button");
+    const closeButton = document.querySelector(".close");
+    const submitButton = document.querySelector(".submit");
+
+    // "Show the dialog" button opens the dialog modally
+    showButton.addEventListener("click", () => {
+    dialog.showModal();
+    });
+
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+    dialog.close();
+    });
+
+    submitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        let title = document.querySelector('input[name="title"]').value;
+        let author = document.querySelector('input[name="author"]').value;
+        let pages = document.querySelector('input[name="pages"]').value;
+        let read = document.querySelector('input[name="read"]:checked').value;
+        // Convert the read value to boolean
+        read = (read === "true");
+        let newBook = new Book(title, author, pages, read);
+        addBookToLibrary(newBook);
+        dialog.close();
+        loadBooks()
+    })
 })
