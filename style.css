@@ -23,7 +23,7 @@ body {
     align-items: center;
     justify-content: space-between;
     background-color: white;
-    width: 30rem;
+    width: 50vw;
     height: auto;
     border-radius: 1.5rem;
     text-align: center;
@@ -72,7 +72,7 @@ button:hover {
   }
 
   dialog {
-    width: 400px;
+    width: 45bw;
     border: none;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
