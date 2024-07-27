@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script>
-    <title>Document</title>
+    <title>Library</title>
 </head>
 <body>
-    <nav>
-        <button class="dialog-button">New Book</button>
-    </nav>
     <div class="books">
     </div>
+    <button class="dialog-button">New Book</button>
 
     <dialog>
         <button class="close" autofocus>Close</button>
@@ -31,13 +29,15 @@
             </div>
             <div>
                 <p>Have you read the book?</p>
-                <div>
-                    <input type="radio" id="no" name="read" value=false>
-                    <label for="child">No</label>
-                </div>
-                <div>
-                <input type="radio" id="yes" name="read" value=true checked>
-                <label for="yes">Yes</label>
+                <div class="radio-group">
+                    <div>
+                        <input type="radio" id="no" name="read" value="false">
+                        <label for="no">No</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="yes" name="read" value="true" checked>
+                        <label for="yes">Yes</label>
+                    </div>
                 </div>
             </div>
             <button class="submit" type="submit">Add book</button>

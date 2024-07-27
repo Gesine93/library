@@ -13,7 +13,14 @@ function Book(title, author, pages, read) {
             status = "not read";
         }
         return `${this.title} by ${this.author}, ${pages} pages, ${status}`;
-    }
+    };
+    this.changeReadStatus = function() {
+        if (this.read) {
+            this.read = false;
+        } else {
+            this.read = true;
+        }
+    };
 }
 
 function addBookToLibrary(book) {
@@ -28,6 +35,8 @@ function loadBooks() {
     myLibrary.forEach((element, index) => {
         let book = document.createElement("div");
         let buttons = document.createElement("div");
+        let content = document.createElement("div");
+        content.classList.add("content");
         buttons.classList.add("buttons");
         book.classList.add("book");
         let title = document.createElement("p");
@@ -46,15 +55,18 @@ function loadBooks() {
         changeRead.setAttribute('data-id', index);
         changeRead.classList.add("changeRead");
         changeRead.textContent=`${element.read ? "Not read" : "Read"}`;
-        book.appendChild(title);
-        book.appendChild(author);
-        book.appendChild(pages);
-        book.appendChild(readStatus);
         buttons.appendChild(changeRead);
         buttons.appendChild(remove);
+        content.appendChild(title);
+        content.appendChild(author);
+        content.appendChild(pages);
+        content.appendChild(readStatus);
+        book.appendChild(content);
         book.appendChild(buttons);
         books.appendChild(book);
     });
+    addListenerRemove();
+    addListenerChange();
 }
 
 function addListenerRemove() {
@@ -63,6 +75,18 @@ function addListenerRemove() {
         button.addEventListener("click", () => {
             let index = button.dataset.id;
             myLibrary.splice(index,1);
+            loadBooks();
+        })
+    })
+}
+
+function addListenerChange() {
+    const changeButtons = document.querySelectorAll(".changeRead");
+    changeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            let index = button.dataset.id;
+            object = myLibrary[index];
+            object.changeReadStatus();
             loadBooks();
         })
     })
@@ -80,15 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showButton = document.querySelector(".dialog-button");
     const closeButton = document.querySelector(".close");
     const submitButton = document.querySelector(".submit");
-    const changeButon = document.querySelectorAll(".changeRead");
-
-    addListenerRemove();
-
-    // change read status when clicking button
-    changeButon.forEach(button => {
-        button.addEventListener("click", () => {
-        })
-    })
 
     // "Show the dialog" button opens the dialog modally
     showButton.addEventListener("click", () => {
@@ -113,5 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.close();
         loadBooks();
         addListenerRemove();
+        addListenerChange();
     })
 })
