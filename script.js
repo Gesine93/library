@@ -57,6 +57,17 @@ function loadBooks() {
     });
 }
 
+function addListenerRemove() {
+    const removeButtons = document.querySelectorAll(".remove");
+    removeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            let index = button.dataset.id;
+            myLibrary.splice(index,1);
+            loadBooks();
+        })
+    })
+}
+
 let bible = new Book("The Bible", "God", 687, false);
 let harry = new Book("Harry Potter", "J.K. Rowling", 598, true);
 
@@ -69,17 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const showButton = document.querySelector(".dialog-button");
     const closeButton = document.querySelector(".close");
     const submitButton = document.querySelector(".submit");
-    const removeButtons = document.querySelectorAll(".remove");
     const changeButon = document.querySelectorAll(".changeRead");
 
-    // remove book when clicking the remove button
-    removeButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            let index = button.dataset.id;
-            myLibrary.splice(index,1);
-            loadBooks();
-        })
-    })
+    addListenerRemove();
 
     // change read status when clicking button
     changeButon.forEach(button => {
@@ -108,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let newBook = new Book(title, author, pages, read);
         addBookToLibrary(newBook);
         dialog.close();
-        loadBooks()
+        loadBooks();
+        addListenerRemove();
     })
 })
