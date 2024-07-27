@@ -25,8 +25,10 @@ function addBookToLibrary(book) {
 function loadBooks() {
     let books = document.querySelector(".books");
     books.textContent = "";
-    myLibrary.forEach(element => {
+    myLibrary.forEach((element, index) => {
         let book = document.createElement("div");
+        let buttons = document.createElement("div");
+        buttons.classList.add("buttons");
         book.classList.add("book");
         let title = document.createElement("p");
         title.innerHTML = `<strong>Title:</strong> ${element.title}`;
@@ -36,10 +38,21 @@ function loadBooks() {
         pages.innerHTML = `<strong>Pages:</strong> ${element.pages}`;
         let readStatus = document.createElement("p");
         readStatus.innerHTML = `<strong>Read:</strong> ${element.read ? "Yes" : "No"}`;
+        let remove= document.createElement("button");
+        remove.setAttribute('data-id', index);
+        remove.classList.add("remove");
+        remove.textContent = "Remove"
+        let changeRead= document.createElement("button");
+        changeRead.setAttribute('data-id', index);
+        changeRead.classList.add("changeRead");
+        changeRead.textContent=`${element.read ? "Not read" : "Read"}`;
         book.appendChild(title);
         book.appendChild(author);
         book.appendChild(pages);
-        book.append(readStatus);
+        book.appendChild(readStatus);
+        buttons.appendChild(changeRead);
+        buttons.appendChild(remove);
+        book.appendChild(buttons);
         books.appendChild(book);
     });
 }
@@ -56,6 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const showButton = document.querySelector(".dialog-button");
     const closeButton = document.querySelector(".close");
     const submitButton = document.querySelector(".submit");
+    const removeButtons = document.querySelectorAll(".remove");
+    const changeButon = document.querySelectorAll(".changeRead");
+
+    // remove book when clicking the remove button
+    removeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            let index = button.dataset.id;
+            myLibrary.splice(index,1);
+            loadBooks();
+        })
+    })
+
+    // change read status when clicking button
+    changeButon.forEach(button => {
+        button.addEventListener("click", () => {
+        })
+    })
 
     // "Show the dialog" button opens the dialog modally
     showButton.addEventListener("click", () => {
