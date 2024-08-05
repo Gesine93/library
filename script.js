@@ -1,26 +1,40 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = function () {
-        let status;
-        if (this.read) {
-            status = "read";
-        } else {
-            status = "not read";
-        }
-        return `${this.title} by ${this.author}, ${pages} pages, ${status}`;
-    };
-    this.changeReadStatus = function() {
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    info() {
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`;
+    }
+
+    changeReadStatus() {
         if (this.read) {
             this.read = false;
         } else {
             this.read = true;
         }
-    };
+    }
+
+    get status() {
+        if (this.read === true) {
+            return "Yes";
+        } else {
+            return "No";
+        }
+    }
+
+    set status(value) {
+        if (value === "Yes") {
+            this.read = true;
+        } else if (value === "No") {
+            this.status = false;
+        }
+    }
 }
 
 function addBookToLibrary(book) {
@@ -46,7 +60,7 @@ function loadBooks() {
         let pages = document.createElement("p");
         pages.innerHTML = `<strong>Pages:</strong> ${element.pages}`;
         let readStatus = document.createElement("p");
-        readStatus.innerHTML = `<strong>Read:</strong> ${element.read ? "Yes" : "No"}`;
+        readStatus.innerHTML = `<strong>Read:</strong> ${element.status}`;
         let remove= document.createElement("button");
         remove.setAttribute('data-id', index);
         remove.classList.add("remove");
